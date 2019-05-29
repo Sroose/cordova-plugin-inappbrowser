@@ -1112,14 +1112,21 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             }
             // Test for whitelisted custom scheme names like mycoolapp:// or twitteroauthresponse:// (Twitter Oauth Response)
-            else if (!url.startsWith("http:") && !url.startsWith("https:") && url.matches("^[a-z]*://.*?$")) {
+            // Removed  condition '&& url.matches("^[a-z]*://.*?$")' because it breaks on special names (eg with a dot) and serves no purpose at all
+            else if (!url.startsWith("http:") && !url.startsWith("https:")) {
+                LOG.e(LOG_TAG, "Checking if intent allowed for url " + url);
                 if (allowedSchemes == null) {
                     String allowed = preferences.getString("AllowedSchemes", "");
                     allowedSchemes = allowed.split(",");
                 }
                 if (allowedSchemes != null) {
                     for (String scheme : allowedSchemes) {
+                        if(scheme === "") {
+                            LOG.e(LOG_TAG, "(bug) Empty scheme detected, hence everything will pass as allowed.");
+                        }
                         if (url.startsWith(scheme)) {
+                            LOG.e(LOG_TAG, "Allowed url scheme, launching intent.");
+                            /*
                             try {
                                 JSONObject obj = new JSONObject();
                                 obj.put("type", "customscheme");
@@ -1128,7 +1135,9 @@ public class InAppBrowser extends CordovaPlugin {
                                 return true;
                             } catch (JSONException ex) {
                                 LOG.e(LOG_TAG, "Custom Scheme URI passed in has caused a JSON error.");
-                            }
+                            }*/
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            cordova.getActivity().startActivity( intent );
                         }
                     }
                 }
