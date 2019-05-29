@@ -1121,7 +1121,7 @@ public class InAppBrowser extends CordovaPlugin {
                 }
                 if (allowedSchemes != null) {
                     for (String scheme : allowedSchemes) {
-                        if(scheme === "") {
+                        if(scheme.isEmpty()) {
                             LOG.e(LOG_TAG, "(bug) Empty scheme detected, hence everything will pass as allowed.");
                         }
                         if (url.startsWith(scheme)) {
