@@ -1308,7 +1308,7 @@ public class InAppBrowser extends CordovaPlugin {
                                  Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                                  cordova.getActivity().startActivity( intent );
                                  override = true;
-                            } catch (JSONException ex) {
+                            } catch (Exception ex) {
                                 LOG.e(LOG_TAG, "Custom Scheme URI passed in has caused a JSON error.");
                             }
                         }
