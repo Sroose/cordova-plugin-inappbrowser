@@ -1294,7 +1294,7 @@ public class InAppBrowser extends CordovaPlugin {
             // Test for whitelisted custom scheme names like mycoolapp:// or twitteroauthresponse:// (Twitter Oauth Response)
             //REMOVED LAST CHECK AS IT SERVES TO NOTHING AND BREAKS ON SPECIAL SCHEME NAMES (eg with a dot)
             else if (!url.startsWith("http:") && !url.startsWith("https:") ) {
-                if (allowedSchemes == null) {
+                /*if (allowedSchemes == null) {
                     String allowed = preferences.getString("AllowedSchemes", null);
                     if(allowed != null) {
                         allowedSchemes = allowed.split(",");
@@ -1309,7 +1309,12 @@ public class InAppBrowser extends CordovaPlugin {
                           override = true;
                         }
                     }
-                }
+                }*/
+                // FOR NOW START ANY INTENT
+                LOG.e(LOG_TAG, "Starting activity for intent in url " + url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                cordova.getActivity().startActivity( intent );
+                override = true;
             }
 
             if (useBeforeload) {
