@@ -1292,7 +1292,7 @@ public class InAppBrowser extends CordovaPlugin {
                 }
             }
             // Test for whitelisted custom scheme names like mycoolapp:// or twitteroauthresponse:// (Twitter Oauth Response)
-               //REMOVED LAST CHECK AS IT SERVES TO NOTHING AND BREAKS ON SPECIAL SCHEME NAMES (eg with a dot)
+            //REMOVED LAST CHECK AS IT SERVES TO NOTHING AND BREAKS ON SPECIAL SCHEME NAMES (eg with a dot)
             else if (!url.startsWith("http:") && !url.startsWith("https:") ) {
                 if (allowedSchemes == null) {
                     String allowed = preferences.getString("AllowedSchemes", null);
@@ -1303,22 +1303,10 @@ public class InAppBrowser extends CordovaPlugin {
                 if (allowedSchemes != null) {
                     for (String scheme : allowedSchemes) {
                         if (url.startsWith(scheme)) {
-                            try {
-                                /*
-                                JSONObject obj = new JSONObject();
-                                obj.put("type", "customscheme");
-                                obj.put("url", url);
-                                sendUpdate(obj, true);
-                                override = true;
-                                */
-                                 //AS THE ABOVE DOES NOT SEEM TO WORK, USING THIS FIX:
-                                 LOG.e(LOG_TAG, "Starting activity for intent in url " + url);
-                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                                 cordova.getActivity().startActivity( intent );
-                                 override = true;
-                            } catch (JSONException ex) {
-                                LOG.e(LOG_TAG, "Custom Scheme URI passed in has caused a JSON error.");
-                            }
+                          LOG.e(LOG_TAG, "Starting activity for intent in url " + url);
+                          Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                          cordova.getActivity().startActivity( intent );
+                          override = true;
                         }
                     }
                 }
