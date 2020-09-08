@@ -538,7 +538,31 @@ static CDVWKInAppBrowser* instance = nil;
     }
     
     //if is an app store link, let the system handle it, otherwise it fails to load it
-    if ([[ url scheme] isEqualToString:@"itms-appss"] || [[ url scheme] isEqualToString:@"itms-apps"]) {
+    if ([[ url scheme] isEqualToString:@"itms-appss"] || [[ url scheme] isEqualToString:@"itms-apps"]
+       || [[ url scheme] isEqualToString:@"bep"]
+       || [[ url scheme] isEqualToString:@"bepgenapp"]
+       || [[ url scheme] isEqualToString:@"belfiuspay"]
+       || [[ url scheme] isEqualToString:@"be.cbc"]
+       || [[ url scheme] isEqualToString:@"be.kbc"]
+       || [[ url scheme] isEqualToString:@"fb"]
+       || [[ url scheme] isEqualToString:@"twitter"]
+       || [[ url scheme] isEqualToString:@"gplus"]
+       || [[ url scheme] isEqualToString:@"pintrest"]
+       || [[ url scheme] isEqualToString:@"instagram"]
+       || [[ url scheme] isEqualToString:@"youtube"]
+       || [[ url scheme] isEqualToString:@"vnd.youtube"]
+       || [[ url scheme] isEqualToString:@"yelp"]
+       || [[ url scheme] isEqualToString:@"linkedin"]
+       || [[ url scheme] isEqualToString:@"tumblr"]
+       || [[ url scheme] isEqualToString:@"whatsapp"]
+       || [[ url scheme] isEqualToString:@"snapchat"]
+       || [[ url scheme] isEqualToString:@"comgooglemaps"]
+       || [[ url scheme] isEqualToString:@"skype"]
+       || [[ url scheme] isEqualToString:@"googledrive"]
+       || [[ url scheme] isEqualToString:@"itms-apps"]
+       || [[ url scheme] isEqualToString:@"tel"]
+       || [[ url scheme] isEqualToString:@"mailto"]
+       ) {
         [theWebView stopLoading];
         [self openInSystem:url];
         shouldStart = NO;
